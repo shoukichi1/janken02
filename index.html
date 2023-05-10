@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>怪談朗読アプリ</title>
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <header>
+    <h1>怪談朗読アプリ</h1>
+
+  </header>
+  <main>
+    <audio src="audio/bgm02.mp3" type="audio/mp3" loop id="bgm"></audio>
+    <audio src="audio/ufufufu.mp3" type="audio/mp3" id="ufufu"></audio>
+
+    <section class="top" id="top">
+
+      <div class="top_btn_position">
+        <button id="top_btn" class="top_btn">はじめる</button>
+      </div>
+
+
+    </section>
+
+
+    <section class="quest_wrapper" id="quest_wrapper">
+
+      <!-- 質問を表示する場所 -->
+      <p id="quest">質問</p>
+
+      <!-- 問いを表示する場所 -->
+      <ul id="choice">
+        <li name="toi" value="1"><span id="choice1">選択肢1</span></li>
+        <li name="toi" value="2"><span id="choice2">選択肢2</span></li>
+        <li name="toi" value="3"><span id="choice3">選択肢3</span></li>
+      </ul>
+
+    </section>
+
+    <section id="roudoku">
+      <div>
+        <img src="img/sample1.jpg" alt="語り手1" class="terror">
+      </div>
+      <div>
+        <button id="btn" class="top_btn">朗読を開始</button>
+      </div>
+
+      <!-- 怪談朗読 -->
+      <div>
+        <audio controls src="audio/kaidan01.wav" class="kaidan" id="story01"></audio>
+        <audio controls src="audio/kaidan02.wav" class="kaidan" id="story02"></audio>
+        <audio controls src="audio/kaidan03.wav" class="kaidan" id="story03"></audio>
+        <audio controls src="audio/kaidan04.wav" class="kaidan" id="story04"></audio>
+        <audio controls src="audio/kaidan05.wav" class="kaidan" id="story05"></audio>
+        <audio controls src="audio/kaidan06.wav" class="kaidan" id="story06"></audio>
+        <audio controls src="audio/kaidan07.wav" class="kaidan" id="story07"></audio>
+        <audio controls src="audio/kaidan08.wav" class="kaidan" id="story08"></audio>
+        <audio controls src="audio/kaidan09.wav" class="kaidan" id="story09"></audio>
+        <audio controls src="audio/kaidan10.wav" class="kaidan" id="story10"></audio>
+        <audio controls src="audio/kaidan11.wav" class="kaidan" id="story11"></audio>
+        <audio controls src="audio/kaidan12.wav" class="kaidan" id="story12"></audio>
+        <audio controls src="audio/kaidan13.wav" class="kaidan" id="story13"></audio>
+        <audio controls src="audio/kaidan14.wav" class="kaidan" id="story14"></audio>
+        <audio controls src="audio/kaidan15.wav" class="kaidan" id="story15"></audio>
+        <audio controls src="audio/kaidan16.wav" class="kaidan" id="story16"></audio>
+        <audio controls src="audio/kaidan17.wav" class="kaidan" id="story17"></audio>
+        <audio controls src="audio/kaidan18.wav" class="kaidan" id="story18"></audio>
+        <audio controls src="audio/kaidan19.wav" class="kaidan" id="story19"></audio>
+        <audio controls src="audio/kaidan20.wav" class="kaidan" id="story20"></audio>
+        <audio controls src="audio/kaidan21.wav" class="kaidan" id="story21"></audio>
+        <audio controls src="audio/kaidan22.wav" class="kaidan" id="story22"></audio>
+        <audio controls src="audio/kaidan23.wav" class="kaidan" id="story23"></audio>
+        <audio controls src="audio/kaidan24.wav" class="kaidan" id="story24"></audio>
+        <audio controls src="audio/kaidan25.wav" class="kaidan" id="story25"></audio>
+        <audio controls src="audio/kaidan26.wav" class="kaidan" id="story26"></audio>
+        <audio controls src="audio/kaidan27.wav" class="kaidan" id="story27"></audio>
+      </div>
+
+
+
+    </section>
+
+
+    <!-- Quantity should be the same in Sass-->
+    <div class="firefly"></div>
+    <div class="firefly"></div>
+    <div class="firefly"></div>
+    <div class="firefly"></div>
+    <div class="firefly"></div>
+    <div class="firefly"></div>
+    <div class="firefly"></div>
+    <div class="firefly"></div>
+    <div class="firefly"></div>
+    <div class="firefly"></div>
+    <div class="firefly"></div>
+    <div class="firefly"></div>
+    <div class="firefly"></div>
+    <div class="firefly"></div>
+    <div class="firefly"></div>
+
+
+  </main>
+
+  <footer>©︎怪談社</footer>
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    // top画面
+
+    $("#top_btn").on("click", function () {
+      $("#bgm")[0].volume = 0.2;
+      $("#bgm")[0].play();
+      $("#ufufu")[0].volume = 0.5;
+      $("#ufufu")[0].play();
+      $("#top").fadeOut(2000);
+      $("#quest_wrapper").fadeIn(2000);
+    });
+
+
+
+
+    // 質問のリスト（オブジェクト） 
+    const questions = [
+
+      {
+        question: "あなたは今どんな気分ですか？",
+        choices: ["元気だ", "落ち着いている", "悲しい"]
+      },
+      {
+        question: "何系の怖い話が聞きたいですか？",
+        choices: ["土着系の怖い話", "学校にまつわる怖い話", "住居にまつわる怖い話"]
+      },
+      {
+        question: "怖さレベルはどのぐらいをご希望ですか？",
+        choices: ["じわじわ怖い", "最強に怖い", "心地よい眠りを誘う怖さ"]
+      }
+
+    ];
+
+
+
+    // ランダムに2つの質問を選ぶ
+    const randomQuestion = $(questions).toArray().sort(function () {
+      return Math.random() - 0.5;
+    }).slice(0, 2);
+
+    // 一番目の質問を指定
+    let i = 0;
+
+    // iに合わせて質問と問いを表示させる関数
+    function q(a) {
+      if (a < randomQuestion.length) {
+        $("#quest").html(randomQuestion[a].question);
+        $("#choice1").html(randomQuestion[a].choices[0]);
+        $("#choice2").html(randomQuestion[a].choices[1]);
+        $("#choice3").html(randomQuestion[a].choices[2]);
+      }
+    }
+
+
+    // 一つ目の質問と問いを表示させる
+    q(i);
+
+
+    // 問いを選択したら２つ目の問いを表示させる
+    $('[name=toi]').on("click", function () {
+      i++;
+      q(i);
+
+    });
+
+    // 選択肢を含むspan要素を取得
+    const choiceElements = $('ul li span');
+
+    // 選択された回答を格納する配列
+    let selectedChoices = [];
+
+    // 選択肢がクリックされた時の処理
+    choiceElements.on('click', function () {
+
+      // 選択された回答のテキストを取得
+      const selectedChoice = $(this).text();
+
+      // 選択された回答を配列に追加
+      selectedChoices.push(selectedChoice);
+
+      // 二つ目の質問を選択し終わったら、質問と問いが非表示になる
+      if (selectedChoices.length > 1) {
+        $("#quest_wrapper").fadeOut(500);
+        $("#roudoku").fadeIn(6000);
+
+
+      }
+
+      console.log(selectedChoices);
+    });
+
+    // 怪談朗読ボタンをクリックしたら朗読を始める
+    $("#btn").on("click", function () {
+
+      if (selectedChoices.includes("元気だ") && selectedChoices.includes("土着系の怖い話")) {
+        $("#story01").css("display", "block");
+        $("#story01")[0].play();
+      }
+      else if (selectedChoices.includes("元気だ") && selectedChoices.includes("学校にまつわる怖い話")) {
+        $("#story02").css("display", "block");
+        $("#story02")[0].play();
+      }
+      else if (selectedChoices.includes("元気だ") && selectedChoices.includes("住居にまつわる怖い話")) {
+        $("#story03").css("display", "block");
+        $("#story03")[0].play();
+      }
+      else if (selectedChoices.includes("落ち着いている") && selectedChoices.includes("土着系の怖い話")) {
+        $("#story04").css("display", "block");
+        $("#story04")[0].play();
+      }
+      else if (selectedChoices.includes("落ち着いている") && selectedChoices.includes("学校にまつわる怖い話")) {
+        $("#story05").css("display", "block");
+        $("#story05")[0].play();
+      }
+      else if (selectedChoices.includes("落ち着いている") && selectedChoices.includes("住居にまつわる怖い話")) {
+        $("#story06").css("display", "block");
+        $("#story06")[0].play();
+      }
+      else if (selectedChoices.includes("悲しい") && selectedChoices.includes("土着系の怖い話")) {
+        $("#story07").css("display", "block");
+        $("#story07")[0].play();
+      }
+      else if (selectedChoices.includes("悲しい") && selectedChoices.includes("学校にまつわる怖い話")) {
+        $("#story08").css("display", "block");
+        $("#story08")[0].play();
+      }
+      else if (selectedChoices.includes("悲しい") && selectedChoices.includes("住居にまつわる怖い話")) {
+        $("#story09").css("display", "block");
+        $("#story09")[0].play();
+      }
+      else if (selectedChoices.includes("元気だ") && selectedChoices.includes("じわじわ怖い")) {
+        $("#story10").css("display", "block");
+        $("#story10")[0].play();
+      }
+      else if (selectedChoices.includes("元気だ") && selectedChoices.includes("最強に怖い")) {
+        $("#story11").css("display", "block");
+        $("#story11")[0].play();
+      }
+      else if (selectedChoices.includes("元気だ") && selectedChoices.includes("心地よい眠りを誘う怖さ")) {
+        $("#story12").css("display", "block");
+        $("#story12")[0].play();
+      }
+      else if (selectedChoices.includes("落ち着いている") && selectedChoices.includes("じわじわ怖い")) {
+        $("#story13").css("display", "block");
+        $("#story13")[0].play();
+      }
+      else if (selectedChoices.includes("落ち着いている") && selectedChoices.includes("最強に怖い")) {
+        $("#story14").css("display", "block");
+        $("#story14")[0].play();
+      }
+      else if (selectedChoices.includes("落ち着いている") && selectedChoices.includes("心地よい眠りを誘う怖さ")) {
+        $("#story15").css("display", "block");
+        $("#story15")[0].play();
+      }
+      else if (selectedChoices.includes("悲しい") && selectedChoices.includes("じわじわ怖い")) {
+        $("#story16").css("display", "block");
+        $("#story16")[0].play();
+      }
+      else if (selectedChoices.includes("悲しい") && selectedChoices.includes("最強に怖い")) {
+        $("#story17").css("display", "block");
+        $("#story17")[0].play();
+      }
+      else if (selectedChoices.includes("悲しい") && selectedChoices.includes("心地よい眠りを誘う怖さ")) {
+        $("#story18").css("display", "block");
+        $("#story18")[0].play();
+      }
+      else if (selectedChoices.includes("土着系の怖い話") && selectedChoices.includes("じわじわ怖い")) {
+        $("#story19").css("display", "block");
+        $("#story19")[0].play();
+      }
+      else if (selectedChoices.includes("土着系の怖い話") && selectedChoices.includes("最強に怖い")) {
+        $("#story20").css("display", "block");
+        $("#story20")[0].play();
+      }
+      else if (selectedChoices.includes("土着系の怖い話") && selectedChoices.includes("心地よい眠りを誘う怖さ")) {
+        $("#story21").css("display", "block");
+        $("#story21")[0].play();
+      }
+      else if (selectedChoices.includes("学校にまつわる怖い話") && selectedChoices.includes("じわじわ怖い")) {
+        $("#story22").css("display", "block");
+        $("#story22")[0].play();
+      }
+      else if (selectedChoices.includes("学校にまつわる怖い話") && selectedChoices.includes("最強に怖い")) {
+        $("#story23").css("display", "block");
+        $("#story23")[0].play();
+      }
+      else if (selectedChoices.includes("学校にまつわる怖い話") && selectedChoices.includes("心地よい眠りを誘う怖さ")) {
+        $("#story24").css("display", "block");
+        $("#story24")[0].play();
+      }
+      else if (selectedChoices.includes("住居にまつわる怖い話") && selectedChoices.includes("じわじわ怖い")) {
+        $("#story25").css("display", "block");
+        $("#story25")[0].play();
+      }
+      else if (selectedChoices.includes("住居にまつわる怖い話") && selectedChoices.includes("最強に怖い")) {
+        $("#story26").css("display", "block");
+        $("#story26")[0].play();
+      }
+      else if (selectedChoices.includes("住居にまつわる怖い話") && selectedChoices.includes("心地よい眠りを誘う怖さ")) {
+        $("#story27").css("display", "block");
+        $("#story27")[0].play();
+      }
+
+
+    });
+
+    // ページが読み込まれたらBGMを再生する
+    // $(document).ready(function () {
+    //   $("#bgm").css("display", "block");
+    //   $("#bgm")[0].play();
+    //   $("#bgm").volume = 0.7; // 音量を設定する場合
+    // });
+
+    // $(document).ready(function () {
+    //   const bgm = $("#bgm")[0];
+    //   bgm.volume = 0.7;
+    //   bgm.play();
+    // });
+
+
+  </script>
+
+
+</body>
+
+</html>
