@@ -43,10 +43,15 @@
 
     </section>
 
+    <div class="terror_wrapper">
+      <img src="img/sample1.jpg" alt="語り手1" class="terror" id="terror01">
+      <img src="img/terror12.jpg" alt="語り手2" class="terror" id="terror02">
+      <img src="img/terror03.jpg" alt="語り手3" class="terror" id="terror03">
+      <img src="img/terror04.jpg" alt="語り手4" class="terror" id="terror04">
+    </div>
+
     <section id="roudoku">
-      <div>
-        <img src="img/sample1.jpg" alt="語り手1" class="terror">
-      </div>
+
       <div>
         <button id="btn" class="top_btn">朗読を開始</button>
       </div>
@@ -178,6 +183,27 @@
 
     });
 
+
+    // 語り手のランダム表示
+    function terror() {
+      const r = Math.floor(Math.random() * 4);
+
+      // 乱数が0なら語り手1が表示される
+      if (r == 0) {
+        $("#terror02").fadeIn(6000);
+      }
+      else if (r == 1) {
+        $("#terror01").fadeIn(6000);
+      }
+      else if (r == 2) {
+        $("#terror03").fadeIn(6000);
+      }
+      else if (r == 3) {
+        $("#terror04").fadeIn(6000);
+      }
+    }
+
+
     // 選択肢を含むspan要素を取得
     const choiceElements = $('ul li span');
 
@@ -197,7 +223,7 @@
       if (selectedChoices.length > 1) {
         $("#quest_wrapper").fadeOut(500);
         $("#roudoku").fadeIn(6000);
-
+        terror();
 
       }
 
@@ -318,19 +344,6 @@
 
 
     });
-
-    // ページが読み込まれたらBGMを再生する
-    // $(document).ready(function () {
-    //   $("#bgm").css("display", "block");
-    //   $("#bgm")[0].play();
-    //   $("#bgm").volume = 0.7; // 音量を設定する場合
-    // });
-
-    // $(document).ready(function () {
-    //   const bgm = $("#bgm")[0];
-    //   bgm.volume = 0.7;
-    //   bgm.play();
-    // });
 
 
   </script>
