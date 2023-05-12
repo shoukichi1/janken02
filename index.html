@@ -18,6 +18,7 @@
   <main>
     <audio src="audio/bgm02.mp3" type="audio/mp3" loop id="bgm"></audio>
     <audio src="audio/ufufufu.mp3" type="audio/mp3" id="ufufu"></audio>
+    <audio src="audio/btn_sound02.mp3" type="audio/mp3" id="btn_sound"></audio>
 
     <section class="top" id="top">
 
@@ -54,6 +55,7 @@
 
       <div>
         <button id="btn" class="top_btn">朗読を開始</button>
+        <button id="reload_btn" class="top_btn">最初に戻る</button>
       </div>
 
       <!-- 怪談朗読 -->
@@ -180,6 +182,7 @@
     $('[name=toi]').on("click", function () {
       i++;
       q(i);
+      $("#btn_sound")[0].play();
 
     });
 
@@ -226,6 +229,7 @@
         terror();
 
       }
+      $("#btn_sound")[0].play();
 
       console.log(selectedChoices);
     });
@@ -345,6 +349,10 @@
 
     });
 
+    // 最初に戻るボタンを押すと画面リロードされる
+    $("#reload_btn").on("click", function () {
+      window.location.reload();
+    });
 
   </script>
 
